@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Celbux/celbuxStats-telegram-bot/utils"
 	telegram "github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/mashaole/telegramtemplate/utils"
 )
 
 var ctx = Ctx

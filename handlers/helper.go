@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/Celbux/celbuxStats-telegram-bot/utils"
 	telegram "github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/mashaole/telegramtemplate/utils"
 )
 
 // Load heavy queries on startup - All transactions take very long to load
@@ -115,8 +115,7 @@ func deleteChatHistory(chatID int64, messageID int) {
 		clearChat := telegram.NewDeleteMessage(chatID, messageID-i)
 		_, err := bot.Send(clearChat)
 		if err != nil {
-			log.Print("Swim")
-
+			log.Print(err)
 		}
 	}
 }

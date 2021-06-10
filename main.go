@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	handlers "github.com/Celbux/celbuxStats-telegram-bot/handlers"
+	handlers "github.com/mashaole/telegramtemplate/handlers"
 )
 
 func main() {

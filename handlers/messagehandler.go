@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/Celbux/celbuxStats-telegram-bot/utils"
 	telegram "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
@@ -33,9 +34,32 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		chatID = int(update.Message.Chat.ID)
 		messageID = update.Message.MessageID
 	}
+	go deleteChatHistory(int64(chatID), messageID)
 
-	//handle reponse ...
-	log.Print(text)
-	log.Print(chatID)
-	log.Print(messageID)
+	switch text {
+	case "simple":
+		params := utils.SendMessageParams{
+			ChatID:   int64(chatID),
+			Text:     "simple reply",
+			Keyboard: StartMenu}
+		err := SendSimpleMessage(params)
+		if err != nil {
+			log.Print(err)
+		}
+	case "inline":
+		params := utils.SendMessageParams{
+			ChatID:   int64(chatID),
+			Text:     "simple reply",
+			Keyboard: StartMenu}
+		err := SendInlineMessage(params)
+		if err != nil {
+			log.Print(err)
+		}
+	default:
+		msg := telegram.NewMessage(int64(chatID), "Please type simple or inline or edit")
+		_, err := bot.Send(msg)
+		if err != nil {
+			log.Print(err)
+		}
+	}
 }

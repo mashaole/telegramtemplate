@@ -15,7 +15,8 @@ import (
 var bot *telegram.BotAPI
 
 func InitTelegram() error {
-	bot, err := telegram.NewBotAPI(Token)
+	var err error
+	bot, err = telegram.NewBotAPI(Token)
 	if err != nil {
 		return nil
 	}

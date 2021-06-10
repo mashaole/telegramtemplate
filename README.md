@@ -1,6 +1,6 @@
 # Telegram Template
 
-Celbux Telegram Template to get you started with your telegram projects
+Telegram Template to get you started with your telegram projects
 
 # Prerequisites
 
@@ -14,7 +14,7 @@ Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 **NB** You **must** set the environment variable values for:
 `TOKEN` the Telegram token received upon registering your bot. <br />
 
-1.Clone this repository using <code>git clone https://github.com/Celbux/telegram-template.git</code><br/>
+1.Clone this repository using <code>git clone https://github.com/mashaole/telegramtemplate.git</code><br/>
 2.Run `go mod tidy` & `go mod vendor` to install required packages and add a vendor to your repo
 3.Run <code>go install</code><br/>
 4.run <code>go run main.go</code><br/>
@@ -24,7 +24,7 @@ Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 **NB** You **must** set the environment variable values for:
 `TOKEN` the Telegram token received upon registering your bot. <br />
 
-1.Clone this repository using <code>git clone https://github.com/Celbux/telegram-template.git</code> on <b>gcp project terminal</b><code>Cloud Shell</code><br/>
+1.Clone this repository using <code>git clone https://github.com/mashaole/telegramtemplate.git</code> on <b>gcp project terminal</b><code>Cloud Shell</code><br/>
 2.Run `go mod tidy` & `go mod vendor` to install required packages and add a vendor to your repo
 3.Run <code>$ export Port="8080"</code> to set port for project.<br/>
 4.Run <code>go install</code><br/>

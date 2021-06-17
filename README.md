@@ -1,6 +1,6 @@
 # Telegram Template
 
-Telegram Template to get you started with your telegram projects
+Telegram Template to get you started with your telegram bot projects
 
 # Prerequisites
 

@@ -2,6 +2,8 @@
 
 Telegram Template to get you started with your telegram bot projects
 
+For the telegram golang library click <b>[Here](https://pkg.go.dev/github.com/go-telegram-bot-api/telegram-bot-api?utm_source=godoc) </b>
+
 # Prerequisites
 
 Make sure you you have <a href="https://golang.org/dl/">Golang</a> installed on your machine<br/>

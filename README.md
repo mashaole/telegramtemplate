@@ -1,4 +1,4 @@
-# Telegram Template
+# Golang Telegram Bot Project Template
 
 Telegram Template to get you started with your telegram bot projects
 

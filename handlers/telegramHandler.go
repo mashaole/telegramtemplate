@@ -6,10 +6,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 
-	telegram "github.com/go-telegram-bot-api/telegram-bot-api"
+	telegram "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 var bot *telegram.BotAPI
@@ -25,10 +24,6 @@ func InitTelegram() error {
 
 	//In local environment
 	if port == "" {
-		_, err := bot.RemoveWebhook() // Removes webhook if already set
-		if err != nil {
-			return err
-		}
 
 		bot.Debug = false
 		log.Printf("Authorized on account %s", bot.Self.UserName)
@@ -36,7 +31,7 @@ func InitTelegram() error {
 		u := telegram.NewUpdate(0)
 		u.Timeout = 60
 
-		updates, err := bot.GetUpdatesChan(u)
+		updates := bot.GetUpdatesChan(u)
 		if err != nil {
 			return err
 		}
@@ -60,14 +55,7 @@ func InitTelegram() error {
 		}
 	} else {
 		//In App Engine
-		webURL, err := url.Parse(WebURL)
-		if err != nil {
-			return err
-		}
-		_, err = bot.SetWebhook(telegram.WebhookConfig{URL: webURL})
-		if err != nil {
-			return err
-		}
+
 		updates := bot.ListenForWebhook(Endpoint)
 
 		for update := range updates {

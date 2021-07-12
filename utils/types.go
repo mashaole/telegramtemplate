@@ -11,3 +11,8 @@ type EditMessageParams struct {
 	MessageID int
 	ParseMode string
 }
+
+// Config for Telegram bot token
+type Config struct {
+	BotToken string
+}

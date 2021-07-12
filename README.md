@@ -8,13 +8,11 @@ For the golang bot api library docs click <b>[Here](https://pkg.go.dev/github.co
 
 Make sure you you have <a href="https://golang.org/dl/">Golang</a> installed on your machine<br/>
 Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
-**NB** You **must** set the environment variable values for:
-`TOKEN` the Telegram token received upon registering your bot. <br />
+**NB** You **must** set bot token in **config.json** <br />
 
 # Installation(Local)
 
-**NB** You **must** set the environment variable values for:
-`TOKEN` the Telegram token received upon registering your bot. <br />
+**NB** You **must** set bot token in **config.json** <br />
 
 1.Clone this repository using <code>git clone https://github.com/mashaole/telegramtemplate.git</code><br/>
 2.Run `go mod tidy` & `go mod vendor` to install required packages and add a vendor to your repo
@@ -23,8 +21,7 @@ Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 
 # Deploy (Server-App Engine)
 
-**NB** You **must** set the environment variable values for:
-`TOKEN` the Telegram token received upon registering your bot. <br />
+**NB** You **must** set bot token in **config.json** <br />
 
 1.Clone this repository using <code>git clone https://github.com/mashaole/telegramtemplate.git</code> on <b>gcp project terminal</b><code>Cloud Shell</code><br/>
 2.Run `go mod tidy` & `go mod vendor` to install required packages and add a vendor to your repo

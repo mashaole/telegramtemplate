@@ -2,6 +2,9 @@ package handlers
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -11,12 +14,8 @@ import (
 
 // Load heavy queries on startup - All transactions take very long to load
 var Ctx = context.Background()
-var Token = os.Getenv("TOKEN")
 
-//Webhook variable
-const Project = "__ProjectName__"
-const Endpoint = "/ad2446213124b6e14e4e20ae3d5d6c64/"
-const WebURL = "https://" + Project + ".el.r.appspot.com/" + Endpoint
+var ConfigFile = ""
 
 //UI buttons
 
@@ -118,4 +117,31 @@ func deleteChatHistory(chatID int64, messageID int) {
 			log.Print(err)
 		}
 	}
+}
+
+//GetConfig gets bot token from config.json
+func GetConfig() (*utils.Config, error) {
+	jsonFile, err := os.Open(ConfigFile)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer func() {
+		err := jsonFile.Close()
+		if err != nil {
+			log.Print(err)
+		}
+	}()
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var file *utils.Config
+	err = json.Unmarshal([]byte(byteValue), &file)
+	if err != nil {
+		fmt.Println(err)
+	}
+	if file.BotToken == "" {
+		return nil, fmt.Errorf("telegram bot token is not declared in the file " + ConfigFile)
+	}
+	return file, nil
 }

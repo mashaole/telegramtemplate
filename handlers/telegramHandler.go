@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+	"runtime"
 
 	telegram "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -14,67 +14,52 @@ import (
 var bot *telegram.BotAPI
 
 func InitTelegram() error {
-	var err error
-	bot, err = telegram.NewBotAPI(Token)
+
+	if ConfigFile == "" {
+		if runtime.GOOS == "windows" {
+			ConfigFile = "../config.json"
+		} else {
+			ConfigFile = "./config.json"
+		}
+	}
+
+	config, err := GetConfig()
+	if err != nil {
+		return err
+	}
+
+	bot, err = telegram.NewBotAPI(config.BotToken)
 	if err != nil {
 		return nil
 	}
 
-	port := os.Getenv("PORT")
+	bot.Debug = false
+	log.Printf("Authorized on account %s", bot.Self.UserName)
 
-	//In local environment
-	if port == "" {
+	u := telegram.NewUpdate(0)
+	u.Timeout = 60
 
-		bot.Debug = false
-		log.Printf("Authorized on account %s", bot.Self.UserName)
+	updates := bot.GetUpdatesChan(u)
+	if err != nil {
+		return err
+	}
 
-		u := telegram.NewUpdate(0)
-		u.Timeout = 60
+	for update := range updates {
+		if update.Message == nil && update.CallbackQuery == nil { // Ignore any non-Message Updates
+			continue
+		}
 
-		updates := bot.GetUpdatesChan(u)
+		jsonData, err := json.Marshal(update)
 		if err != nil {
 			return err
 		}
 
-		for update := range updates {
-			if update.Message == nil && update.CallbackQuery == nil { // Ignore any non-Message Updates
-				continue
-			}
-
-			jsonData, err := json.Marshal(update)
-			if err != nil {
-				return err
-			}
-
-			request := &http.Request{
-				Body: ioutil.NopCloser(bytes.NewReader(jsonData)),
-			}
-
-			var respWriter http.ResponseWriter
-			TelegramHandler(respWriter, request)
+		request := &http.Request{
+			Body: ioutil.NopCloser(bytes.NewReader(jsonData)),
 		}
-	} else {
-		//In App Engine
 
-		updates := bot.ListenForWebhook(Endpoint)
-
-		for update := range updates {
-			if update.Message == nil && update.CallbackQuery == nil { // Ignore any non-Message Updates
-				continue
-			}
-
-			jsonData, err := json.Marshal(update)
-			if err != nil {
-				return err
-			}
-
-			request := &http.Request{
-				Body: ioutil.NopCloser(bytes.NewReader(jsonData)),
-			}
-
-			var respWriter http.ResponseWriter
-			TelegramHandler(respWriter, request)
-		}
+		var respWriter http.ResponseWriter
+		TelegramHandler(respWriter, request)
 	}
 	return nil
 }

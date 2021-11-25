@@ -25,25 +25,60 @@ var StartMenu = [][]string{
 	{"button3", "3"}, menu,
 }
 
+//Keypad is used to generate a keypad type
+func Keypad(keyPad KeyPadParams) [][]string {
+	if keyPad.Type == "Pass" || keyPad.Type == "Amount" {
+		var keypadString = [][]string{
+			{keyPad.Status + " " + keyPad.Type + ":" + keyPad.Passtyped, keyPad.Type + keyPad.Status},
+			{"1", keyPad.Type + "1"}, {"2", keyPad.Type + "2"}, {"3", keyPad.Type + "3"},
+			{"4", keyPad.Type + "4"}, {"5", keyPad.Type + "5"}, {"6", keyPad.Type + "6"},
+			{"7", keyPad.Type + "7"}, {"8", keyPad.Type + "8"}, {"9", keyPad.Type + "9"},
+			{"Clear", keyPad.Type + "Clear"}, {"0", keyPad.Type + "0"}, {".", keyPad.Type},
+			Endbutton, {"Send", keyPad.Type + "Send"},
+		}
+		return keypadString
+	} else if keyPad.Type == "Code" {
+		var keypadString = [][]string{
+			{keyPad.Status + " " + keyPad.Type + ":" + keyPad.Passtyped, keyPad.Type + keyPad.Status}, {"Food", keyPad.Type + "Food"}, {"Room", keyPad.Type + "Room"},
+			{"1", keyPad.Type + "1"}, {"2", keyPad.Type + "2"}, {"3", keyPad.Type + "3"},
+			{"4", keyPad.Type + "4"}, {"5", keyPad.Type + "5"}, {"6", keyPad.Type + "6"},
+			{"7", keyPad.Type + "7"}, {"8", keyPad.Type + "8"}, {"9", keyPad.Type + "9"},
+			{"Clear", keyPad.Type + "Clear"}, {"0", keyPad.Type + "0"}, {".", keyPad.Type},
+			Endbutton, {"Send", keyPad.Type + "Send"},
+		}
+		return keypadString
+	}
+	return nil
+}
+
 //UI buttons
 
 //CreateInlineKeyBoard Creates Inline keyboard after being passed a button texts and their callbacks
 func CreateInlineKeyBoard(buttons [][]string) telegram.InlineKeyboardMarkup {
 	if len(buttons) > 0 {
 		var keyboardinline [][]telegram.InlineKeyboardButton
-
-		//This part is an algorithim to add 2 buttons per row else one button will take up with of both columns
-		// for to change this change `i+=2` to number of rows needed and repeat should always be 1 less than `i+=2`
-		for i := 0; i <= len(buttons)-1; i += 2 {
-			var keyboardButtons []telegram.InlineKeyboardButton
-			var repeat = 1
-			for j := 0; j <= repeat; j++ {
-				if i+j == len(buttons) {
-					break
-				}
-				keyboardButtons = append(keyboardButtons, telegram.NewInlineKeyboardButtonData(buttons[i+j][0], buttons[i+j][1]))
+		columnsPerRow := 3
+		if len(buttons) < 7 {
+			for i := range buttons {
+				var keyboardButtons []telegram.InlineKeyboardButton
+				keyboardButtons = append(keyboardButtons, telegram.NewInlineKeyboardButtonData(buttons[i][0], buttons[i][1]))
+				keyboardinline = append(keyboardinline, keyboardButtons)
 			}
+		} else {
+			var keyboardButtons []telegram.InlineKeyboardButton
+			keyboardButtons = append(keyboardButtons, telegram.NewInlineKeyboardButtonData(buttons[0][0], buttons[0][1]))
 			keyboardinline = append(keyboardinline, keyboardButtons)
+
+			for i := 0; i <= len(buttons)-2; i += columnsPerRow {
+				keyboardButtons = nil
+				for j := 1; j <= columnsPerRow; j++ {
+					if i+j == len(buttons) {
+						break
+					}
+					keyboardButtons = append(keyboardButtons, telegram.NewInlineKeyboardButtonData(buttons[i+j][0], buttons[i+j][1]))
+				}
+				keyboardinline = append(keyboardinline, keyboardButtons)
+			}
 		}
 		return telegram.InlineKeyboardMarkup{
 			InlineKeyboard: keyboardinline,

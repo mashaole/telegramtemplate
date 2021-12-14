@@ -25,6 +25,15 @@ var StartMenu = [][]string{
 	{"button3", "3"}, menu,
 }
 
+//Endbutton contains end button with callback strings
+var Endbutton = []string{"End", "/end"}
+
+type KeyPadParams struct {
+	Type      string
+	Status    string
+	Passtyped string `json:"passtyped"`
+}
+
 //Keypad is used to generate a keypad type
 func Keypad(keyPad KeyPadParams) [][]string {
 	if keyPad.Type == "Pass" || keyPad.Type == "Amount" {

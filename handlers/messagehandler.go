@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -10,6 +11,16 @@ import (
 )
 
 var ctx = Ctx
+
+// IndexHandler in the case someone wants to access through api
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+	log.Println(r.Body)
+	fmt.Fprint(w, "This is not an open api!")
+}
 
 func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	// Clear update before decode

@@ -24,11 +24,10 @@ Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 **NB** You **must** set bot token in **config.json** <br />
 
 1.Clone this repository using <code>git clone https://github.com/mashaole/telegramtemplate.git</code> on <b> gcp project terminal </b><code>Cloud Shell</code><br/>
-2.Run `go mod tidy` & `go mod vendor` to install required packages and add a vendor to your repo<br/>
-3.Run <code>go install</code><br/>
-4.Run <code>go build</code><br/>
-5.Run <code>gcloud app deploy</code><br/>
-6.Open terminal and perform curl to Telegram messages to your bot <code>curl --data "url=(Custom Url)/(handled route)" https://api.telegram.org/bot(botToken)/SetWebhook</code> <br/>
+2.Run `make tidy` to install required packages and add a vendor to your repo<br/>
+3.Run <code>go build</code><br/>
+4.Run <code>gcloud app deploy</code><br/>
+5.Open terminal and perform curl to Telegram messages to your bot <code>curl --data "url=(Custom Url)/(handled route)" https://api.telegram.org/bot(botToken)/SetWebhook</code> <br/>
 `E.g curl --data "url=https://mywbesite.com//bsjhdbsakjbdjks" https://api.telegram.org/bot1234567890:kdjakjsdlksajdkl-sldlakslk-aklsjhdkjha/SetWebhook`<br/>
 
 # Usage

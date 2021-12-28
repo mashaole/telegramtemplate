@@ -6,8 +6,9 @@ For the golang bot api library docs click <b>[Here](https://pkg.go.dev/github.co
 
 # Prerequisites
 
+This install assumes you are already running [Git](https://git-scm.com/),
 Make sure you you have <a href="https://golang.org/dl/">Golang</a> installed on your machine<br/>
-Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
+Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)<br/>
 **NB** You **must** set bot token in **config.json** <br />
 
 # Installation(Local)
@@ -15,9 +16,9 @@ Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 **NB** You **must** set bot token in **config.json** <br />
 
 1.Clone this repository using <code>git clone https://github.com/mashaole/telegramtemplate.git</code><br/>
-2.Run `go mod tidy` & `go mod vendor` to install required packages and add a vendor to your repo
-3.Run <code>go install</code><br/>
-4.run <code>go run main.go</code><br/>
+2.Run `make tidy` to install required packages and add a vendor to your repo<br/>
+3.Run `make start`<br/>
+
 
 # Deploy (Google App Engine)
 
@@ -27,8 +28,8 @@ Telegram bot Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 2.Run `make tidy` to install required packages and add a vendor to your repo<br/>
 3.Run <code>go build</code><br/>
 4.Run <code>gcloud app deploy</code><br/>
-5.Open terminal and perform curl to Telegram messages to your bot <code>curl --data "url=(Custom Url)/(handled route)" https://api.telegram.org/bot(botToken)/SetWebhook</code> <br/>
-`E.g curl --data "url=https://mywbesite.com//bsjhdbsakjbdjks" https://api.telegram.org/bot1234567890:kdjakjsdlksajdkl-sldlakslk-aklsjhdkjha/SetWebhook`<br/>
+5.Open terminal and perform curl to set Telegram messages to your bot url <code>curl --data "url=(Custom Url)/(handled route)" https://api.telegram.org/bot(botToken)/SetWebhook</code> <br/>
+E.g `curl --data "url=https://mywbesite.com/bsjhdbsakjbdjks" https://api.telegram.org/bot1234567890:kdjakjsdlksajdkl-sldlakslk-aklsjhdkjha/SetWebhook`<br/>
 
 # Usage
 
